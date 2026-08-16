@@ -1,39 +1,40 @@
 ### Hi, I'm Maciej 👋
 
-<!--
-	TODO(maciej): fill in the real copy below. This is a scaffold, not
-	finished content — nothing here should be treated as accurate until
-	you've edited it. Keep this short: this page is your GitHub profile
-	README, not a blog post. Save the deep dives for the blog.
--->
-
-[Placeholder — one or two sentences on who you are and what you do day to
-day. e.g. role, focus area, what kind of problems you like working on.]
+Senior engineer, 11+ years in platform engineering and distributed systems,
+working across regulated financial and public-sector environments. I design
+and run the common infrastructure other teams build on: multi-tenant AWS/
+on-prem foundations, GitOps self-service, secure data layers, systems that
+hold up under regulatory scrutiny.
 
 ### What I do
 
-- [Placeholder — bullet on your main area of work / specialty]
-- [Placeholder — bullet on a second area, if relevant]
-- [Placeholder — bullet on what you're currently exploring or open to]
+- Platform engineering: GitOps self-service (Crossplane, ArgoCD), Kubernetes
+  operators, multi-tenant cloud foundations serving 100+ internal teams
+- AI-native development: agentic coding workflows (Claude Code, Kiro + MCP)
+  as a daily driver, and building LLM agents/products myself
+- Kubestronaut (all 5 CNCF Kubernetes certs) · AWS Certified Solutions
+  Architect – Professional
 
-### A project I'm building
+### Projects
 
-**[kubemend](https://github.com/m-stepkowski/kubemend)** — an LLM agent
-harness for Kubernetes remediation, hand-written with no agent frameworks.
-It diagnoses incidents from live cluster state and can only act by opening
-draft pull requests against a GitOps repo; a verification pipeline the model
-doesn't control re-checks every proposed change before it's ever called
-"done." I write about what building it actually taught me — costs, bugs,
-and an adversarial prompt-injection test — on [my blog](https://stepkowski.dev).
+- **[kubemend](https://github.com/m-stepkowski/kubemend)** — an LLM agent
+  harness for Kubernetes remediation, hand-written with no agent frameworks.
+  It diagnoses incidents from live cluster state and can only act by opening
+  draft pull requests; a verification pipeline the model doesn't control
+  re-checks every proposed change before it's ever called "done." I write
+  about what building it taught me on [my blog](https://stepkowski.dev).
+- **[Rnkd](https://getrnkd.app)** — a consumer product I shipped solo,
+  end-to-end: design, mobile frontend, backend, infrastructure, distribution.
+- **[rgw-model](https://github.com/m-stepkowski/rgw-model)** — a multi-agent
+  reinforcement-learning environment with cooperative and competitive agents.
 
 ### Writing
 
-Technical deep-dives, published at **[stepkowski.dev](https://stepkowski.dev)**
-and syndicated from there.
+Technical deep-dives, published at **[stepkowski.dev](https://stepkowski.dev)**.
 
 ### Get in touch
 
-[Placeholder — email / LinkedIn / whatever you want inbound contact to use.]
+[LinkedIn](https://linkedin.com/in/maciej-stepkowski)
 
 ---
 

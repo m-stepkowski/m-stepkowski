@@ -4,7 +4,8 @@ import Footer from '../components/Footer.astro';
 import Header from '../components/Header.astro';
 import { SITE_TITLE } from '../consts';
 
-const description = 'About Maciej Stepkowski.';
+const description =
+	'Senior engineer working in platform engineering, distributed systems, and AI-native development.';
 ---
 
 <!doctype html>
@@ -17,26 +18,55 @@ const description = 'About Maciej Stepkowski.';
 		<main class="prose">
 			<h1>About</h1>
 
-			<!--
-				TODO(maciej): replace this placeholder with real bio copy.
-				Suggested shape: who you are / what you work on day to day,
-				what kubemend is and why you built it, what you're open to
-				(consulting, roles, collaborators) and how to reach you.
-			-->
 			<p>
-				[Placeholder — short professional bio. Who you are, what you work on, and what kind
-				of problems you like solving.]
+				I'm a senior engineer with 11+ years shipping production systems, most of it in
+				platform engineering: designing and running the common infrastructure other teams
+				build on, rather than a single product. That's included several years inside a
+				Tier-1 European bank, as architect and senior IC across three greenfield platforms
+				serving 100+ product teams — GitOps self-service, multi-tenant AWS foundations,
+				secure data infrastructure, and event-driven serverless workloads — and, more
+				recently, a multi-cloud deployment platform for public-sector tenants in a highly
+				regulated, sovereignty-sensitive environment, where I work on GitOps self-service via
+				Crossplane, EKS infrastructure handling up to 20,000 req/s, and disaster-recovery
+				design.
 			</p>
 
 			<p>
-				[Placeholder — a paragraph on <a href="https://github.com/m-stepkowski/kubemend"
-					>kubemend</a
-				>: what it is, why you built it, and what the series on this blog covers.]
+				I hold an MSc in Big Data Analytics (multi-agent reinforcement learning), and these
+				days that background feeds directly into how I work day to day: AI-native
+				development with Claude Code and Kiro, spec-driven and agentic, as a daily driver for
+				code, docs, research, and planning — not a novelty layered on top of how I used to
+				work, but how the work gets done now.
 			</p>
 
 			<p>
-				[Placeholder — how people should reach out: email, LinkedIn, or wherever you want
-				inbound contact to land.]
+				<a href="https://github.com/m-stepkowski/kubemend">kubemend</a> is where those two
+				threads meet: an LLM agent harness for Kubernetes remediation, hand-written with no
+				agent frameworks, that diagnoses incidents from live cluster state and can only act
+				by opening draft pull requests. A verification pipeline the model doesn't control
+				re-checks every proposed change — helm render, policy check, live diff, scope check —
+				before a run is ever allowed to call itself done. This blog is where I write up what
+				building that verification discipline actually costs and what it's caught, with real
+				numbers, code, and trace excerpts rather than a demo reel. The posts are meant to
+				hold up to someone reading the source they link to, not just the prose.
+			</p>
+
+			<p>
+				Outside of platform work I build end-to-end on my own: <a
+					href="https://getrnkd.app">Rnkd</a
+				> is a consumer product I shipped solo — design, mobile frontend, backend,
+				infrastructure, distribution — and <a
+					href="https://github.com/m-stepkowski/rgw-model">rgw-model</a
+				> is a multi-agent reinforcement-learning environment with cooperative and
+				competitive agents, closer to my MSc background.
+			</p>
+
+			<p>
+				I'm a <a href="https://www.cncf.io/training/kubestronaut/">Kubestronaut</a> (all
+				five CNCF Kubernetes certifications) and an AWS Certified Solutions Architect –
+				Professional. Reach me on <a href="https://linkedin.com/in/maciej-stepkowski"
+					>LinkedIn</a
+				>.
 			</p>
 		</main>
 		<Footer />
