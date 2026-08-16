@@ -3,6 +3,7 @@ title: "I built a Kubernetes remediation agent that can only open pull requests 
 description: "kubemend verifies every proposed fix independently instead of trusting the model — and that verification pipeline had its own bugs. Two of them, and what a 30-run eval sweep against a real cluster cost to find."
 pubDate: 2026-08-14
 canonicalURL: "https://stepkowski.dev/blog/verification-pipeline-cost/"
+part: 1
 ---
 
 There's a genre of "AI SRE" demo where a model diagnoses a Kubernetes
@@ -28,7 +29,7 @@ ways "the harness verified it" turned out to not mean "it actually works" —
 and how an eval suite that runs the same scenario N times, against a real
 cluster, is the only thing that reliably surfaces the gap.
 
-## The rule the whole project rests on
+## 🎯 The rule the whole project rests on
 
 > **Success is decided only by an independent re-run of the validation
 > pipeline. A model's self-report never ends a run.**
@@ -50,7 +51,7 @@ cluster, because that's when the pipeline's own bugs started showing up —
 and every one of them was a case where the *harness* would have told the
 model (and a human reviewer) "verified" when the fix didn't actually work.
 
-## The bug that would have shipped a policy violation
+## 🐛 The bug that would have shipped a policy violation
 
 Kyverno — the admission-policy engine the validator runs against every
 proposed change — reported this on an early run:
@@ -74,7 +75,7 @@ scenario against a real cluster repeatedly, not because I reasoned my way to
 it — the bug was invisible in a code review of the Kyverno-invocation code,
 which looked correct. It was only visible as a pattern across live runs.
 
-## The bug that made the gate lie about a resource quota
+## 🐛 The bug that made the gate lie about a resource quota
 
 Later, building a scenario where an agent has to fix a Deployment that
 exceeds a namespace's pod quota, I added a new validator stage: render the
@@ -109,10 +110,13 @@ that made the agent better at the task — because being lied to by your own
 verification tool is exactly as bad for a model as it is for a person holding
 a runbook.
 
-## What the eval numbers actually cost
+## 💰 What the eval numbers actually cost
 
-Six scenarios, five repeats each, on `claude-sonnet-5`: **29 of 30 pass,
-$11.08 total.** The one failure — one `bad-probe-path` run hitting
+Six scenarios, five repeats each, on `claude-sonnet-5`:
+
+> 📊 **29 of 30 runs passed — $11.08 total.**
+
+The one failure — one `bad-probe-path` run hitting
 `budget_exhausted` after cycling `propose_git_change`/`validate_change`
 without converging — is a genuine model limitation, not a harness bug. Full
 table in [`evals/reports/v0.1-baseline/report.md`](https://github.com/m-stepkowski/kubemend/blob/main/evals/reports/v0.1-baseline/report.md).
@@ -124,7 +128,7 @@ green run tells you a scenario *can* pass. It tells you nothing about a
 validator stage that's wrong in a way that happens to look right on that one
 random model output.
 
-## What this doesn't claim
+## 🚫 What this doesn't claim
 
 It doesn't diagnose incidents outside a single declared `(namespace, app)`
 scope — a fix that genuinely needs to touch something else produces a written

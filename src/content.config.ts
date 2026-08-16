@@ -17,6 +17,10 @@ const blog = defineCollection({
 			// The URL search engines / cross-posted copies (dev.to, Hashnode, ...)
 			// should treat as the source of truth for this post.
 			canonicalURL: z.string().url().optional(),
+			// Position within a numbered series, e.g. the kubemend posts.
+			// Independent of pubDate so reading order stays explicit even if
+			// posts are backdated or published out of order.
+			part: z.number().int().positive().optional(),
 		}),
 });
 

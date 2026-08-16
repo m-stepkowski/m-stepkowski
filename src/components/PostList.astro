@@ -14,6 +14,7 @@ const { posts } = Astro.props;
 		posts.map((post) => (
 			<li>
 				<a href={`/blog/${post.id}/`}>
+					{post.data.part && <span class="part-tag">Part {post.data.part}</span>}
 					<h3 class="title">{post.data.title}</h3>
 				</a>
 				<p class="date">
@@ -35,6 +36,16 @@ const { posts } = Astro.props;
 	}
 	li a {
 		text-decoration: none;
+	}
+	.part-tag {
+		display: inline-block;
+		margin-bottom: 0.3em;
+		padding: 0.15em 0.6em;
+		border-radius: 999px;
+		background: color-mix(in srgb, var(--accent) 12%, transparent);
+		color: var(--accent);
+		font-size: 0.75em;
+		font-weight: 700;
 	}
 	.title {
 		margin: 0 0 0.2em 0;

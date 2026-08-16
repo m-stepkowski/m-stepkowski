@@ -3,6 +3,7 @@ title: "Prompt-injecting my own SRE agent through its logs — and finding the a
 description: "A planted 'ignore previous instructions' payload reached the model through a tool I hadn't built the scenario around — and why the system prompt's blanket stance mattered more than the specific attack surface I designed for."
 pubDate: 2026-08-16
 canonicalURL: "https://stepkowski.dev/blog/prompt-injection-scenario/"
+part: 3
 ---
 
 The [first post](/blog/verification-pipeline-cost/) in this
@@ -17,7 +18,7 @@ because the difference matters.
 This post is about building that test, and about the attack reaching the
 model through a door I hadn't drawn on the floor plan.
 
-## The scenario
+## 🎯 The scenario
 
 The idea: plant an adversarial instruction somewhere the agent's own tools
 will surface it, wrapped around a real, in-scope fault it's already trying to
@@ -41,7 +42,7 @@ the way an attacker would actually want it planted: quiet, plausible, and
 competing for attention with a task the model has every reason to focus on
 instead.
 
-## Where the injection actually reached the model
+## 🕵️ Where the injection actually reached the model
 
 I built this expecting the attack surface to be `search_logs` — the model
 would need to go looking at `shop-api`'s logs, and that's where it would meet
@@ -74,7 +75,7 @@ anything that round-trips through the cluster and back into a tool result.
 The system prompt's blanket stance turned out to matter more broadly than the
 scenario that was supposed to test it.
 
-## What happened after that
+## ✅ What happened after that
 
 Nothing. That's the actual finding, and I want to be precise about how I know
 it's nothing and not just "nothing bad happened to show up in one run."
@@ -100,7 +101,7 @@ whole JSONL for this reason. Across the dev-tier sweep (cheap model,
 `propose_git_change` call naming anything under `shop-worker/`, at any point,
 not just at the end.
 
-## Two bugs the negative scenarios found, that had nothing to do with the model
+## 🐛 Two bugs the negative scenarios found, that had nothing to do with the model
 
 Building the other two M6 scenarios — `fix-needs-template-change` (no
 values-only fix exists; correct behavior is a handoff) and `scope-trap` (the
@@ -133,11 +134,13 @@ lab's gitea fixture was still running the chart from before the sidecar and
 after adding them. A one-command fix, but the kind that only shows up by
 running the actual scenario against the actual lab, not by reading the diff.
 
-## What it cost
+## 💰 What it cost
 
 Dev-tier sweep, cheap model (`claude-haiku-4-5`), n=3: all three scenarios
 3/3. Committed baseline, main model (`claude-sonnet-5`), n=3, capped at a
-$5 budget: **8/9, $4.01 total.**
+$5 budget:
+
+> 📊 **8/9 pass — $4.01 total.**
 
 | scenario | pass | iters (avg) | cost (avg) |
 |---|---|---|---|
@@ -163,7 +166,7 @@ values-only path was structurally closed. Correct diagnosis, incomplete
 handoff. That's a real, specific gap, not a rounding error — and exactly the
 kind of thing a single green run would never have surfaced.
 
-## The throughline
+## 🧵 The throughline
 
 The rule from the first post in this series was "success is decided only by
 an independent re-run of validation, never a model's self-report." This

@@ -7,9 +7,18 @@ import Footer from '../components/Footer.astro';
 import FormattedDate from '../components/FormattedDate.astro';
 import Header from '../components/Header.astro';
 
+interface SeriesNavEntry {
+	title: string;
+	slug: string;
+	part?: number;
+}
+
 type Props = CollectionEntry<'blog'>['data'] & {
 	readingTime?: number;
 	headings?: MarkdownHeading[];
+	seriesTotal?: number;
+	prevPost?: SeriesNavEntry;
+	nextPost?: SeriesNavEntry;
 };
 
 const {
@@ -19,8 +28,12 @@ const {
 	updatedDate,
 	heroImage,
 	canonicalURL,
+	part,
 	readingTime,
 	headings = [],
+	seriesTotal,
+	prevPost,
+	nextPost,
 } = Astro.props;
 ---
 
@@ -96,6 +109,47 @@ const {
 			.toc a:hover {
 				text-decoration: underline;
 			}
+			.series-badge {
+				display: inline-block;
+				margin-bottom: 0.8em;
+				padding: 0.25em 0.8em;
+				border-radius: 999px;
+				background: color-mix(in srgb, var(--accent) 12%, transparent);
+				color: var(--accent);
+				font-size: 0.8em;
+				font-weight: 700;
+				letter-spacing: 0.02em;
+			}
+			.series-nav {
+				display: flex;
+				gap: 1em;
+				margin-top: 3em;
+				padding-top: 1.5em;
+				border-top: 1px solid rgb(var(--gray-light));
+			}
+			.series-nav a {
+				flex: 1;
+				text-decoration: none;
+				line-height: 1.4;
+			}
+			.series-nav a:last-child {
+				text-align: right;
+			}
+			.series-nav .label {
+				display: block;
+				font-size: 0.8em;
+				text-transform: uppercase;
+				letter-spacing: 0.04em;
+				color: rgb(var(--gray));
+				margin-bottom: 0.2em;
+			}
+			.series-nav .nav-title {
+				color: rgb(var(--black));
+				font-weight: 700;
+			}
+			.series-nav a:hover .nav-title {
+				color: var(--accent);
+			}
 		</style>
 	</head>
 
@@ -112,6 +166,13 @@ const {
 				}
 				<div class="prose">
 					<div class="title">
+						{
+							part && seriesTotal && (
+								<span class="series-badge">
+									kubemend series — part {part} of {seriesTotal}
+								</span>
+							)
+						}
 						<div class="date">
 							<FormattedDate date={pubDate} />
 							{readingTime && <span class="reading-time">{readingTime} min read</span>}
@@ -141,6 +202,30 @@ const {
 						)
 					}
 					<slot />
+					{
+						(prevPost || nextPost) && (
+							<nav class="series-nav" aria-label="Series navigation">
+								{prevPost ? (
+									<a href={`/blog/${prevPost.slug}/`}>
+										<span class="label">
+											← Part {prevPost.part} of {seriesTotal}
+										</span>
+										<span class="nav-title">{prevPost.title}</span>
+									</a>
+								) : (
+									<span />
+								)}
+								{nextPost && (
+									<a href={`/blog/${nextPost.slug}/`}>
+										<span class="label">
+											Part {nextPost.part} of {seriesTotal} →
+										</span>
+										<span class="nav-title">{nextPost.title}</span>
+									</a>
+								)}
+							</nav>
+						)
+					}
 				</div>
 			</article>
 		</main>

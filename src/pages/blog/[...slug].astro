@@ -4,21 +4,50 @@ import BlogPost from '../../layouts/BlogPost.astro';
 
 export async function getStaticPaths() {
 	const posts = await getCollection('blog');
-	return posts.map((post) => ({
-		params: { slug: post.id },
-		props: post,
-	}));
-}
-type Props = CollectionEntry<'blog'>;
+	const seriesPosts = posts
+		.filter((post) => post.data.part !== undefined)
+		.sort((a, b) => (a.data.part ?? 0) - (b.data.part ?? 0));
 
-const post = Astro.props;
+	return posts.map((post) => {
+		const seriesIndex = seriesPosts.findIndex((seriesPost) => seriesPost.id === post.id);
+		const prevPost = seriesIndex > 0 ? seriesPosts[seriesIndex - 1] : undefined;
+		const nextPost =
+			seriesIndex !== -1 && seriesIndex < seriesPosts.length - 1
+				? seriesPosts[seriesIndex + 1]
+				: undefined;
+
+		return {
+			params: { slug: post.id },
+			props: { post, seriesTotal: seriesPosts.length, prevPost, nextPost },
+		};
+	});
+}
+
+type Props = {
+	post: CollectionEntry<'blog'>;
+	seriesTotal: number;
+	prevPost?: CollectionEntry<'blog'>;
+	nextPost?: CollectionEntry<'blog'>;
+};
+
+const { post, seriesTotal, prevPost, nextPost } = Astro.props;
 const { Content, headings } = await render(post);
 
 const wordCount = post.body?.trim().split(/\s+/).length ?? 0;
 const readingTime = Math.max(1, Math.round(wordCount / 200));
 const tableOfContents = headings.filter((heading) => heading.depth === 2);
+
+const toNavEntry = (entry: CollectionEntry<'blog'> | undefined) =>
+	entry && { title: entry.data.title, slug: entry.id, part: entry.data.part };
 ---
 
-<BlogPost {...post.data} readingTime={readingTime} headings={tableOfContents}>
+<BlogPost
+	{...post.data}
+	readingTime={readingTime}
+	headings={tableOfContents}
+	seriesTotal={seriesTotal}
+	prevPost={toNavEntry(prevPost)}
+	nextPost={toNavEntry(nextPost)}
+>
 	<Content />
 </BlogPost>
