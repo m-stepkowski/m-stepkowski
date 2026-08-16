@@ -1,0 +1,52 @@
+---
+import BaseHead from '../components/BaseHead.astro';
+import Footer from '../components/Footer.astro';
+import Header from '../components/Header.astro';
+import { SITE_TITLE } from '../consts';
+
+const description = 'About Maciej Stepkowski.';
+---
+
+<!doctype html>
+<html lang="en">
+	<head>
+		<BaseHead title={`About | ${SITE_TITLE}`} description={description} />
+	</head>
+	<body>
+		<Header />
+		<main class="prose">
+			<h1>About</h1>
+
+			<!--
+				TODO(maciej): replace this placeholder with real bio copy.
+				Suggested shape: who you are / what you work on day to day,
+				what kubemend is and why you built it, what you're open to
+				(consulting, roles, collaborators) and how to reach you.
+			-->
+			<p>
+				[Placeholder — short professional bio. Who you are, what you work on, and what kind
+				of problems you like solving.]
+			</p>
+
+			<p>
+				[Placeholder — a paragraph on <a href="https://github.com/m-stepkowski/kubemend"
+					>kubemend</a
+				>: what it is, why you built it, and what the series on this blog covers.]
+			</p>
+
+			<p>
+				[Placeholder — how people should reach out: email, LinkedIn, or wherever you want
+				inbound contact to land.]
+			</p>
+		</main>
+		<Footer />
+	</body>
+</html>
+<style>
+	.prose {
+		width: 720px;
+		max-width: calc(100% - 2em);
+		margin: auto;
+		padding: 1em 1em 3em 1em;
+	}
+</style>

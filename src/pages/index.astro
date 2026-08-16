@@ -1,0 +1,47 @@
+---
+import BaseHead from '../components/BaseHead.astro';
+import Footer from '../components/Footer.astro';
+import Header from '../components/Header.astro';
+import PostList from '../components/PostList.astro';
+import { SITE_DESCRIPTION, SITE_TITLE } from '../consts';
+import { getCollection } from 'astro:content';
+
+const posts = (await getCollection('blog')).sort(
+	(a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
+);
+---
+
+<!doctype html>
+<html lang="en">
+	<head>
+		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
+	</head>
+	<body>
+		<Header />
+		<main>
+			<section class="intro">
+				<h1>{SITE_TITLE}</h1>
+				<p>
+					I build and write about <a href="https://github.com/m-stepkowski/kubemend"
+						>kubemend</a
+					>, an LLM agent harness for Kubernetes remediation, and the verification
+					engineering that makes an autonomous agent trustworthy enough to use. See the
+					<a href="/about">about page</a> for more.
+				</p>
+			</section>
+			<section>
+				<h2>Writing</h2>
+				<PostList posts={posts} />
+			</section>
+		</main>
+		<Footer />
+	</body>
+</html>
+<style>
+	.intro {
+		margin-bottom: 2.5em;
+	}
+	.intro p {
+		color: rgb(var(--gray-dark));
+	}
+</style>
