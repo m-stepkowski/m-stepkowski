@@ -1,14 +1,27 @@
 ---
 import { Image } from 'astro:assets';
 import type { CollectionEntry } from 'astro:content';
+import type { MarkdownHeading } from 'astro';
 import BaseHead from '../components/BaseHead.astro';
 import Footer from '../components/Footer.astro';
 import FormattedDate from '../components/FormattedDate.astro';
 import Header from '../components/Header.astro';
 
-type Props = CollectionEntry<'blog'>['data'];
+type Props = CollectionEntry<'blog'>['data'] & {
+	readingTime?: number;
+	headings?: MarkdownHeading[];
+};
 
-const { title, description, pubDate, updatedDate, heroImage, canonicalURL } = Astro.props;
+const {
+	title,
+	description,
+	pubDate,
+	updatedDate,
+	heroImage,
+	canonicalURL,
+	readingTime,
+	headings = [],
+} = Astro.props;
 ---
 
 <html lang="en">
@@ -49,8 +62,39 @@ const { title, description, pubDate, updatedDate, heroImage, canonicalURL } = As
 				margin-bottom: 0.5em;
 				color: rgb(var(--gray));
 			}
+			.reading-time::before {
+				content: '·';
+				margin: 0 0.4em;
+			}
 			.last-updated-on {
 				font-style: italic;
+			}
+			.toc {
+				margin: 0 0 2.5em 0;
+				padding: 1em 1.5em;
+				border: 1px solid rgb(var(--gray-light));
+				border-radius: 8px;
+			}
+			.toc p {
+				margin: 0 0 0.5em 0;
+				font-weight: 700;
+				font-size: 0.85em;
+				text-transform: uppercase;
+				letter-spacing: 0.04em;
+				color: rgb(var(--gray));
+			}
+			.toc ol {
+				margin: 0;
+				padding-left: 1.2em;
+			}
+			.toc li {
+				margin-bottom: 0.3em;
+			}
+			.toc a {
+				text-decoration: none;
+			}
+			.toc a:hover {
+				text-decoration: underline;
 			}
 		</style>
 	</head>
@@ -70,6 +114,7 @@ const { title, description, pubDate, updatedDate, heroImage, canonicalURL } = As
 					<div class="title">
 						<div class="date">
 							<FormattedDate date={pubDate} />
+							{readingTime && <span class="reading-time">{readingTime} min read</span>}
 							{
 								updatedDate && (
 									<div class="last-updated-on">
@@ -81,6 +126,20 @@ const { title, description, pubDate, updatedDate, heroImage, canonicalURL } = As
 						<h1>{title}</h1>
 						<hr />
 					</div>
+					{
+						headings.length > 1 && (
+							<nav class="toc" aria-label="Table of contents">
+								<p>On this page</p>
+								<ol>
+									{headings.map((heading) => (
+										<li>
+											<a href={`#${heading.slug}`}>{heading.text}</a>
+										</li>
+									))}
+								</ol>
+							</nav>
+						)
+					}
 					<slot />
 				</div>
 			</article>
