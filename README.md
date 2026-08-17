@@ -46,7 +46,7 @@ Technical deep-dives, published at **[stepkowski.dev](https://stepkowski.dev)**.
 
 ### Get in touch
 
-[LinkedIn](https://linkedin.com/in/maciej-stepkowski) · [X/Twitter](https://x.com/mstepkowski)
+[maciej@stepkowski.dev](mailto:maciej@stepkowski.dev) · [LinkedIn](https://linkedin.com/in/maciej-stepkowski) · [X/Twitter](https://x.com/mstepkowski)
 
 ---
 
