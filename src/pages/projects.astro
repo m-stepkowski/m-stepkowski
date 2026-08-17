@@ -1,0 +1,51 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+const description = 'Selected projects by Maciej Stępkowski.';
+---
+
+<BaseLayout title="Projects" description={description}>
+	<h1>Projects</h1>
+	<ul class="project-list">
+		<li>
+			<a href="https://github.com/m-stepkowski/kubemend">kubemend</a>
+			<p>
+				An LLM agent harness for Kubernetes remediation, hand-written with no agent frameworks.
+				Diagnoses incidents from live cluster state and can only act by opening draft pull
+				requests — a verification pipeline the model doesn't control re-checks every change
+				before it's ever called "done." I write about what building it taught me in <a
+					href="/blog">a short series of articles</a
+				>.
+			</p>
+		</li>
+		<li>
+			<a href="https://getrnkd.app">Rnkd</a>
+			<p>
+				A consumer product I shipped solo, end-to-end: design, mobile frontend, backend,
+				infrastructure, distribution.
+			</p>
+		</li>
+		<li>
+			<a href="https://github.com/m-stepkowski/rgw-model">rgw-model</a>
+			<p>A multi-agent reinforcement-learning environment with cooperative and competitive agents.</p>
+		</li>
+	</ul>
+</BaseLayout>
+
+<style>
+	.project-list {
+		list-style: none;
+		margin: 0;
+		padding: 0;
+	}
+	.project-list li {
+		margin-bottom: 2em;
+	}
+	.project-list li > a {
+		font-size: 1.1em;
+		font-weight: 600;
+	}
+	.project-list p {
+		margin: 0.3em 0 0 0;
+	}
+</style>

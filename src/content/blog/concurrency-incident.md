@@ -13,7 +13,7 @@ that rule against myself, noticed, and had to apply the exact same discipline
 to my own mess that the harness applies to the model. It's a better story
 about the project than the numbers are.
 
-## ⚠️ What happened
+## What happened
 
 I kicked off a 30-run sweep (six scenarios, five repeats each, on the full
 model) as a background process. It ran long enough that my tooling's
@@ -41,7 +41,7 @@ the namespace's pod count while this run was checking its own work. That's
 not a subtle bug — it's the harness accurately reporting a cluster state that
 two processes were actively fighting over.
 
-## 🧯 Stopping the bleeding, then figuring out the damage
+## Stopping the bleeding, then figuring out the damage
 
 First move: `ps aux`, confirm what's actually running (not what a
 notification claims is running), kill both processes. That's the boring part.
@@ -85,7 +85,7 @@ traces held up against both checks. Three replacement runs, each launched
 only after confirming via `ps` that nothing else was touching the lab, closed
 the gap.
 
-## 💭 The part worth sitting with
+## The part worth sitting with
 
 Discarding everything would have been the "safe" choice, and it would have
 been wrong in the opposite direction from trusting all of it blindly — not
@@ -104,7 +104,7 @@ coincidence. It's the same failure mode at two different layers: trusting a
 status report (mine from a dropped notification channel, the model's from
 whatever it believes about its own fix) instead of checking the artifact.
 
-> 💵 **Cost of the incident:** roughly $5–9 of API spend on runs that turned
+> **Cost of the incident:** roughly $5–9 of API spend on runs that turned
 > out to be unrecoverable as evidence (not wasted *money*, exactly — spent
 > confirming a real methodology worked — but not a result I'd publish
 > either).
